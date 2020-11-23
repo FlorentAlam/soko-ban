@@ -5,16 +5,19 @@
   "license": "MIT",
   "dependencies": {
     "@types/pixi.js": "^5.0.0",
+    "clean-webpack-plugin": "^3.0.0",
     "pixi.js": "^5.3.3",
     "source-map-loader": "^1.1.2",
     "ts-config": "^20.10.0",
     "ts-loader": "^8.0.11",
     "typescript": "^4.1.2",
     "webpack": "^5.6.0",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.4.0"
   },
   "scripts": {
-    "start": "webpack serve"
+    "start": "webpack-dev-server --env development",
+    "build": "webpack --env production"
   },
   "devDependencies": {
     "webpack-cli": "^4.2.0"

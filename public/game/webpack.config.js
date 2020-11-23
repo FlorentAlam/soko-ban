@@ -1,27 +1,8 @@
-var path = require('path');
+const { merge } = require('webpack-merge'); //[1]
 
-module.exports = {
-    entry: "./src/script.ts",
-    output: {
-        filename: "./bundle.js"
-    },
-    mode: "production",
-    devtool: "source-map",
-    resolve: {
-        extensions: [".ts", ".js"]
-    },
-    module: {
-        rules: [
-            {test: /\.tsx?$/, loader: "ts-loader"},
-            {
-                test: /\.js$/, 
-                exclude: /node_modules/,
-                loader: "source-map-loader"}
-        ]
-    },
-    devServer: {
-        contentBase: path.join(__dirname, 'dist'),
-        compress: true,
-        port: 9000
-    }
+const commonConfig = require('./webpack.common.js'); //[2]
+
+module.exports = (env) => {
+    const config = require('./webpack.' + (env.production ? 'production' : 'development') + '.js');
+    return merge(commonConfig, config);
 }
