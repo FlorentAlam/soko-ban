@@ -36,10 +36,10 @@ export default class MoveableObject{
 
     isColliding(speed: {x?: number, y?: number}){
         const nextPosition = levels[0][this._grid_pos.y + (speed.y || 0)][this._grid_pos.x + (speed.x || 0)];
-        if(nextPosition !== 0){
+        if(nextPosition){
             if(nextPosition instanceof Object){
                 const nextNextPosition = levels[0][this._grid_pos.y + (speed.y * 2 || 0)][this._grid_pos.x + (speed.x * 2 || 0)];
-                if(nextNextPosition === 0 || nextNextPosition === 't'){
+                if(nextNextPosition === 0 || nextNextPosition === 'tb'){
                     for(const key in speed){
                         (nextPosition as MoveableObject).updateSpeed({[key]: speed[key] * SPEED});
                     }
