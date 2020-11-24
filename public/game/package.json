@@ -16,7 +16,7 @@
     "webpack-merge": "^5.4.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --env development",
+    "start": "webpack serve --env development",
     "build": "webpack --env production"
   },
   "devDependencies": {

@@ -48,7 +48,7 @@ export default class Level {
         this.items.push(sprite);
 
         if(name === "char_bottom_1"){
-            levels[0][sprite.position.y / SCALED_TILE][sprite.position.x / SCALED_TILE] = new Player(sprite);
+            levels[0][sprite.position.y / SCALED_TILE][sprite.position.x / SCALED_TILE] = new Player(sprite, this._assets);
         }
         if(name === "caisse_blue"){
             levels[0][sprite.position.y / SCALED_TILE][sprite.position.x / SCALED_TILE] = new MoveableObject(sprite);

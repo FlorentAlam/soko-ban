@@ -1,7 +1,6 @@
 import SpriteFactory from "./SpriteFactory";
 import Level from "./Level";
 import { TILE_SCALE } from "./constantes.js";
-// import * as PIXI from 'pixi.js';
 import { Loader, Application } from 'pixi.js';
 
 export default class SpriteLoader{
