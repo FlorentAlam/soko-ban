@@ -1,3 +1,5 @@
+import { socket } from "./socket";
+
 type Point = {x: number, y: number};
 type Controls = { [key: string]: Point};
 
@@ -8,16 +10,16 @@ export default class Controller{
 
     _initController(){
         let movements: Controls = {
-            ArrowLeft: {x: -1, y: 0},
-            ArrowRight: {x: 1, y: 0},
-            ArrowDown: {x: 0, y: 1},
-            ArrowUp: {x: 0, y: -1},
+            left_arrow: {x: -1, y: 0},
+            right_arrow: {x: 1, y: 0},
+            bottom_arrow: {x: 0, y: 1},
+            top_arrow: {x: 0, y: -1},
         }
-        window.addEventListener('keydown', (e) => {
-            if(movements[e.code]) window.dispatchEvent(new CustomEvent('move', {detail: {...movements[e.code]}}));
+        socket.on('clicked', (value) => {
+            if(movements[value]) window.dispatchEvent(new CustomEvent('move', {detail: {...movements[value]}}));
         });
-        window.addEventListener('keyup', () => {
+        socket.on('released', () => {
             window.dispatchEvent(new CustomEvent('stop'));
-        });
+        })
     } 
 }

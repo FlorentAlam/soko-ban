@@ -17,7 +17,7 @@ socket.on('controller connected', () => {
     home.remove();
 })
 
-qr.addData(`https://soko-ban.herokuapp.com/?roomId=${randomRoom}`);
+qr.addData(`${'https://soko-ban.herokuapp.com'}/?roomId=${randomRoom}`);
 qr.make();
 document.getElementById('placeholder').innerHTML = qr.createImgTag();
 
