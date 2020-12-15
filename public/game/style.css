@@ -29,3 +29,12 @@ canvas{
     top: 4%;
     left: 41%;
 }
+
+#home{
+    height: 100vh;
+    width: 100vw;
+    background: red;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

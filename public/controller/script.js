@@ -104,5 +104,7 @@ class Buttons {
         
     }
 }
+const params = new URLSearchParams(location.search);
+socket.emit('joinRoom', {id: params.get('roomId')});
 
 new Assets();

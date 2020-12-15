@@ -3,7 +3,7 @@ export const TILE_SIZE = 128;
 export const TILE_SCALE = .25;
 export const SCALED_TILE = TILE_SIZE * TILE_SCALE;
 export const TILE_QUANTITY = APPLICATION_SIZE / SCALED_TILE;
-export const SPEED = 1.4;
+export const SPEED = 3;
 export const CHAR_POSITIONS = ['bottom', 'top', 'left', 'right'];
 
 export const MAP_VALUE_ASSOC = {
@@ -17,15 +17,3 @@ export const MAP_VALUE_ASSOC = {
     ty: 'target_yellow',
     c: 'char_bottom_1'
 }
-
-// User in Player.ts in _setDirection
-// export const DIRECTIONS = {
-//     x: {
-//         [SPEED]: "right",
-//         [-SPEED]: "left" 
-//     },
-//     y: {
-//         [SPEED]: "bottom",
-//         [-SPEED]: "top"
-//     }
-// }

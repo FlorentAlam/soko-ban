@@ -1,18 +1,23 @@
 import { MAP_VALUE_ASSOC, SCALED_TILE, TILE_QUANTITY } from "./constantes.js";
+import { FixedObject } from "./FixedObject";
 import { levels } from "./levels";
-import MoveableObject from "./MoveableObject";
-import Player from "./Player";
+// import MoveableObject from "./MoveableObject";
+import { MovingObject } from "./MovingObject";
+import Game from "./Game";
+import {Player} from "./Player";
 import SpriteFactory from "./SpriteFactory";
 
 export default class Level {
     private _assets: SpriteFactory;
     private _level: number;
+    private _game: Game;
     public items: PIXI.Sprite[];
 
     constructor(assets: SpriteFactory){
         this._assets = assets;
-        this.items = [];
+        this._game = new Game();
         this._level = 0;
+        this.items = [];
         this._initLevel();
     }
 
@@ -50,12 +55,16 @@ export default class Level {
         sprite.position.x = position.x;
         sprite.position.y = position.y;
         this.items.push(sprite);
-
+        if(name === "caisse_red"){
+            this._game.add(new FixedObject(sprite));
+        }
         if(name === "char_bottom_1"){
-            levels[0][sprite.position.y / SCALED_TILE][sprite.position.x / SCALED_TILE] = new Player(sprite, this._assets);
+            let player = new Player(sprite, this._assets);
+            this._game.add(player);
+            this._game.player = player;
         }
         if(name === "caisse_blue"){
-            levels[0][sprite.position.y / SCALED_TILE][sprite.position.x / SCALED_TILE] = new MoveableObject(sprite);
+            this._game.add(new MovingObject(sprite));
         }
     }
 }

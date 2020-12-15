@@ -6,8 +6,18 @@
     <title>Game</title>
     <link rel="stylesheet" href="style.css">
     <script src="/socket.io/socket.io.js"></script>
+    <script src="qrcode.js"></script>
 </head>
 <body>
+    <div id="home">
+        <img id="home_canvas" src="assets/home_bg.jpg"/>
+        <!-- <div id="home_canvas"></div> -->
+        <div id="home_motif">
+            <img id="titre" src="./assets/titre.png"/>
+            <p>Veuillez vous munir de votre téléphone ou votre tablette et scannez ce QR Code.<br/>Pour une expérience optimale activez les vibrations de votre téléphone.</p>
+            <div id="placeholder"></div>
+        </div>
+    </div>
     
     <script type="module" src="./bundle.js"></script>
 </body>
