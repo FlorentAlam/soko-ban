@@ -17,7 +17,7 @@ socket.on('controller connected', () => {
     home.remove();
 })
 
-qr.addData(`http://192.168.1.16:3000/?roomId=${randomRoom}`);
+qr.addData(`${process.env.URL ? process.env.URL : 'http://192.168.1.16:3000'}/?roomId=${randomRoom}`);
 qr.make();
 document.getElementById('placeholder').innerHTML = qr.createImgTag();
 
