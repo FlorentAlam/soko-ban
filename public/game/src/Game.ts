@@ -35,15 +35,26 @@ export default class Game{
         const player_orientation = this._player.orientation;
         const player_position = this._player.gridPos;
         for(let i = 0; i < this._objects.length; i++){
-            if((this._objects[i].gridPos.x === player_position.x + player_orientation.x) && (this._objects[i].gridPos.y === player_position.y + player_orientation.y)){
+            if((this._objects[i].gridPos.x === player_position.x + (this._player.isGrabbing ? -player_orientation.x : player_orientation.x)) && (this._objects[i].gridPos.y === player_position.y + (this._player.isGrabbing ? -this._player.orientation.y : player_orientation.y))){
                 if(this._objects[i] instanceof FixedObject){
                     return false;
                 } else if(this._objects[i] instanceof MovingObject){
                     for(let j = 0; j < this._objects.length; j++){
-                        if((this._objects[j].gridPos.x === player_position.x + (player_orientation.x * 2)) && (this._objects[j].gridPos.y === player_position.y + (player_orientation.y * 2))){
-                            return false;
+                        if(this._player.isGrabbing){
+                            if((this._objects[j].gridPos.x === player_position.x - (-player_orientation.x)) && (this._objects[j].gridPos.y === player_position.y - (-player_orientation.y))){
+                                return false;
+                            } else if((this._objects[j].gridPos.x === player_position.x + player_orientation.x) && (this._objects[j].gridPos.y === player_position.y + player_orientation.y)){
+                                console.log("test");
+                                return false;
+                            }
+                        } else {
+                            if((this._objects[j].gridPos.x === player_position.x + (player_orientation.x * 2)) && (this._objects[j].gridPos.y === player_position.y + (player_orientation.y * 2))){
+                                return false;
+                            }
                         }
+                        
                     }
+
                     (this._objects[i] as MovingObject).orientation = this._player.orientation;
                     (this._objects[i] as MovingObject).setPosition();
                     (this._objects[i] as MovingObject).startMovement();

@@ -26,8 +26,10 @@ io.on('connection', socket => {
       io.in(parseInt(id.id)).emit('controller connected');
     })
     socket.on('clicked', (button) => {
-      console.log(socket.rooms);
-      io.emit('clicked', button);
+      socket.rooms.forEach(element => {
+          socket.to(element).emit('clicked', button);
+      });
+      
     });
     socket.on('released', () => {
       io.emit('released');

@@ -11,6 +11,7 @@ export class Player extends GameObject{
     private _orientation: Point;
     public isMoving: boolean;
     private _lastPosition: Point;
+    public isGrabbing: boolean;
     // private _spritePosition: {[key: string]: PIXI.Sprite};
     // private _elapsedTime: number;
     // private _spriteWalkCycle: number;
@@ -21,6 +22,7 @@ export class Player extends GameObject{
         super(sprite);
         this._orientation = {x: 0, y: -1};
         this.isMoving = false;
+        this.isGrabbing = false;
         // this._spritePosition = this._initDifferentsPositions(assets);
         // this._elapsedTime = 0;
         // this._spriteWalkCycle = 1;
@@ -31,8 +33,19 @@ export class Player extends GameObject{
             y: this.gridPos.y * SCALED_TILE
         }
 
+        this._initGrabbingEvents();
+
         this.move = this.move.bind(this);
         requestAnimationFrame(this.move);
+    }
+
+    _initGrabbingEvents(){
+        window.addEventListener('grab', () => {
+            this.isGrabbing = true;
+        });
+        window.addEventListener('release', () => {
+            this.isGrabbing = false;
+        })
     }
 
     // _initDifferentsPositions(assets: SpriteFactory){
