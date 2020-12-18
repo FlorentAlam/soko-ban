@@ -12,10 +12,10 @@ export class Player extends GameObject{
     public isMoving: boolean;
     private _lastPosition: Point;
     public isGrabbing: boolean;
-    // private _spritePosition: {[key: string]: PIXI.Sprite};
-    // private _elapsedTime: number;
+    private _spritePosition: {[key: string]: PIXI.Sprite};
+    private _elapsedTime: number;
     // private _spriteWalkCycle: number;
-    // private _direction: string;
+    private _direction: string;
     // public hasToStop: boolean;
 
     constructor(sprite: PIXI.Sprite, assets: SpriteFactory){
@@ -23,10 +23,11 @@ export class Player extends GameObject{
         this._orientation = {x: 0, y: -1};
         this.isMoving = false;
         this.isGrabbing = false;
-        // this._spritePosition = this._initDifferentsPositions(assets);
-        // this._elapsedTime = 0;
+        this._spritePosition = this._initDifferentsPositions(assets);
+        console.log(this._spritePosition);
+        this._elapsedTime = 0;
         // this._spriteWalkCycle = 1;
-        // this._direction = "bottom";
+        this._direction = "bottom";
         // this.hasToStop = true;
         this._lastPosition = {
             x: this.gridPos.x * SCALED_TILE,
@@ -48,15 +49,15 @@ export class Player extends GameObject{
         })
     }
 
-    // _initDifferentsPositions(assets: SpriteFactory){
-    //     let positions = {};
-    //     for(let i = 0; i < CHAR_POSITIONS.length; i++){
-    //         for(let j = 1; j < 4; j++){
-    //             positions[`char_${CHAR_POSITIONS[i]}_${j}`] = assets.createSprites(`char_${CHAR_POSITIONS[i]}_${j}`);
-    //         }
-    //     }
-    //     return positions;
-    // }
+    _initDifferentsPositions(assets: SpriteFactory){
+        let positions = {};
+        for(let i = 0; i < CHAR_POSITIONS.length; i++){
+            for(let j = 1; j < 4; j++){
+                positions[`char_${CHAR_POSITIONS[i]}_${j}`] = assets.createSprites(`char_${CHAR_POSITIONS[i]}_${j}`);
+            }
+        }
+        return positions;
+    }
 
     get orientation(){
         return this._orientation;
@@ -78,24 +79,27 @@ export class Player extends GameObject{
         return delta;
     }
 
-    // _setDirection(){
-    //     if(this._orientation.x === -1) this._direction = "left";
-    //     if(this._orientation.x === 1) this._direction = "right";
-    //     if(this._orientation.y === -1) this._direction = "top";
-    //     if(this._orientation.y === 1) this._direction = "bottom";
-    // }
+    _setDirection(){
+        if(this._orientation.x === -1) this._direction = this.isGrabbing ? "right" : "left";
+        if(this._orientation.x === 1) this._direction = this.isGrabbing ? "left" : "right";
+        if(this._orientation.y === -1) this._direction = this.isGrabbing ? "bottom" : "top";
+        if(this._orientation.y === 1) this._direction =this.isGrabbing ? "top" : "bottom";
+    }
 
-    // _setWalkCycle(){
-    //     if(this._elapsedTime >= 10 || this._elapsedTime === 0){
-    //         this._spriteWalkCycle = this._spriteWalkCycle >= 3 ? 1 : this._spriteWalkCycle + 1;
-    //         this._object.texture = this._spritePosition[`char_${this._direction}_${this._spriteWalkCycle}`].texture;
-    //         this._elapsedTime = 0;
-    //     }
-    // }
+    _setWalkCycle(){
+        this._setDirection();
+        if(this._elapsedTime >= 10 || this._elapsedTime === 0){
+            // this._spriteWalkCycle = this._spriteWalkCycle >= 3 ? 1 : this._spriteWalkCycle + 1;
+            
+            this._object.texture = this._spritePosition[`char_${this._direction}_1`].texture;
+            this._elapsedTime = 0;
+        }
+    }
 
     move(){
         if(this.isMoving){
-            // this._setWalkCycle();
+            console.log("test");
+            this._setWalkCycle();
             let delta = this.calculateDelta();
             if(delta.x >= SCALED_TILE || delta.y >= SCALED_TILE){
                 this.isMoving = false;
@@ -105,7 +109,7 @@ export class Player extends GameObject{
                 this._object.position.x += this._orientation.x * SPEED;
                 this._object.position.y += this._orientation.y * SPEED;
             }
-            // this._elapsedTime++;
+            this._elapsedTime++;
         }
         
         requestAnimationFrame(this.move);

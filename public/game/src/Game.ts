@@ -3,14 +3,17 @@ import { FixedObject } from "./FixedObject";
 import { GameObject } from "./GameObject";
 import { MovingObject } from "./MovingObject";
 import { Player } from "./Player";
+import Target from "./Target";
 
 export default class Game{
     private _objects: GameObject[];
     private _player: Player;
+    private _targets: Target[];
     private _controller: Controller;
 
     constructor(){
         this._objects = [];
+        this._targets = [];
         this._controller = new Controller();
         this._initController();
     }
@@ -26,7 +29,7 @@ export default class Game{
         //     this._player.isMoving = false;
         // })
     }
-
+    addTarget(object: GameObject){this._targets.push(object)};
     add(object: GameObject){ this._objects.push(object); }
 
     set player(player: Player){ this._player = player; }

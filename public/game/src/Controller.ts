@@ -35,7 +35,6 @@ export default class Controller{
         
 
         window.addEventListener('keydown', (e) => {
-            console.log(e.code);
             if(movements[e.code]) window.dispatchEvent(new CustomEvent('move', {detail: {...movements[e.code]}}));
             if(e.code === 'KeyQ') window.dispatchEvent(new CustomEvent('grab'));
             if(e.code === 'KeyW') window.dispatchEvent(new CustomEvent('release'));

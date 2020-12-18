@@ -6,6 +6,7 @@ import { MovingObject } from "./MovingObject";
 import Game from "./Game";
 import {Player} from "./Player";
 import SpriteFactory from "./SpriteFactory";
+import Target from "./Target";
 
 export default class Level {
     private _assets: SpriteFactory;
@@ -65,6 +66,9 @@ export default class Level {
         }
         if(name === "caisse_blue"){
             this._game.add(new MovingObject(sprite));
+        }
+        if(name === "target_blue"){
+            this._game.addTarget(new Target(sprite));
         }
     }
 }
