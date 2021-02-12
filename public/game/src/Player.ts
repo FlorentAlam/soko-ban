@@ -9,6 +9,7 @@ type Point = {
 
 export class Player extends GameObject{
     private _orientation: Point;
+    public orientationLock: boolean;
     public isMoving: boolean;
     private _lastPosition: Point;
     public isGrabbing: boolean;
@@ -21,10 +22,10 @@ export class Player extends GameObject{
     constructor(sprite: PIXI.Sprite, assets: SpriteFactory){
         super(sprite);
         this._orientation = {x: 0, y: -1};
+        this.orientationLock = false;
         this.isMoving = false;
         this.isGrabbing = false;
         this._spritePosition = this._initDifferentsPositions(assets);
-        console.log(this._spritePosition);
         this._elapsedTime = 0;
         // this._spriteWalkCycle = 1;
         this._direction = "bottom";
@@ -46,7 +47,14 @@ export class Player extends GameObject{
         });
         window.addEventListener('release', () => {
             this.isGrabbing = false;
+            this.unlockOrientation();
         })
+    }
+    lockOrientation(){
+        this.orientationLock = true;
+    }
+    unlockOrientation(){
+        this.orientationLock = false;
     }
 
     _initDifferentsPositions(assets: SpriteFactory){
@@ -98,7 +106,6 @@ export class Player extends GameObject{
 
     move(){
         if(this.isMoving){
-            console.log("test");
             this._setWalkCycle();
             let delta = this.calculateDelta();
             if(delta.x >= SCALED_TILE || delta.y >= SCALED_TILE){

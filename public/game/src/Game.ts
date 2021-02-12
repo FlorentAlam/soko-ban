@@ -21,7 +21,12 @@ export default class Game{
     _initController(){
         window.addEventListener('move', (e: CustomEvent) => {
             if(!this._player.isMoving){
-                this._player.orientation = e.detail;
+                if(!this._player.orientationLock){
+                    this._player.orientation = e.detail;
+                    if(this._player.isGrabbing){
+                        this._player.lockOrientation();
+                    }
+                }
                 if(this.checkNextCase()) this._player.isMoving = true;
             }
         });
