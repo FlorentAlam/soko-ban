@@ -3,7 +3,7 @@
     padding: 0;
 }
 body{
-    background: red;
+    background: rgb(56, 45, 75);
 }
 
 #manette{
@@ -17,6 +17,23 @@ body{
     align-items: center;
     justify-content: center;
     overflow: hidden;
+}
+
+#rotate_warning{
+    height: 100vh;
+    width: 100vw;
+}
+#rotate_warning p{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    color: white;
+    font-size: .8em;
+    font-family: arial;
+    font-weight: bold;
+    margin: 0;
 }
 
 #left_arrow{
