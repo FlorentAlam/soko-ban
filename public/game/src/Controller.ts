@@ -18,6 +18,8 @@ export default class Controller{
         }
         socket.on('clicked', (value) => {
             if(movements[value]) window.dispatchEvent(new CustomEvent('move', {detail: {...movements[value]}}));
+            if(value === 'a_button') window.dispatchEvent(new CustomEvent('grab'));
+            if(value === 'b_button') window.dispatchEvent(new CustomEvent('release'));
         });
         socket.on('released', () => {
             window.dispatchEvent(new CustomEvent('stop'));
